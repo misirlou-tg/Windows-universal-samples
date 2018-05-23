@@ -44,7 +44,7 @@ void Scenario1_FindUsers::OnNavigatedTo(NavigationEventArgs^ e)
         return when_all(begin(tasks), end(tasks)).then([this, users](std::vector<Object^> results)
         {
             // For each user and display name...
-            for (size_t index = 0; index < users->Size; index++)
+            for (unsigned int index = 0; index < users->Size; index++)
             {
                 auto displayName = safe_cast<String^>(results[index]);
                 // Choose a generic name if we do not have access to the actual name.
