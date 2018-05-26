@@ -22,6 +22,11 @@ namespace winrt::UserInfoCppWinRt::implementation
         SampleTitle().Text(FEATURE_NAME);
     }
 
+    void MainPage::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args) const
+    {
+        UNREFERENCED_PARAMETER(args);
+    }
+
     void MainPage::Button_Click(IInspectable const& sender, RoutedEventArgs const& args)
     {
         UNREFERENCED_PARAMETER(sender);
@@ -44,10 +49,5 @@ namespace winrt::UserInfoCppWinRt::implementation
         auto buttonTag = button.Tag();
         auto uriText = winrt::unbox_value<hstring>(buttonTag);
         Windows::System::Launcher::LaunchUriAsync(Uri(uriText));
-    }
-
-    void MainPage::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args) const
-    {
-        UNREFERENCED_PARAMETER(args);
     }
 }
