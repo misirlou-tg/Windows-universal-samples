@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "App.xaml.g.h"
 
-namespace winrt::UserInfoCppWinRt::implementation
+namespace winrt::SDKTemplate::implementation
 {
     struct App : AppT<App>
     {
