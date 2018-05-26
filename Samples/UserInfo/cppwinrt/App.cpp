@@ -15,8 +15,8 @@ using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Navigation;
-using namespace UserInfoCppWinRt;
-using namespace UserInfoCppWinRt::implementation;
+using namespace SDKTemplate;
+using namespace SDKTemplate::implementation;
 
 /// <summary>
 /// Initializes the singleton application object.  This is the first line of authored code
