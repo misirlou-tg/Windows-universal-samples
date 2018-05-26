@@ -90,7 +90,9 @@
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="..\..\..\SharedContent\xaml\Styles.xaml" />
+    <Page Include="..\..\..\SharedContent\xaml\Styles.xaml">
+      <Link>Styles\Styles.xaml</Link>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -102,13 +104,27 @@
     <None Include="UserInfoCppWinRt_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png" />
-    <Image Include="..\..\..\SharedContent\media\smalltile-sdk.png" />
-    <Image Include="..\..\..\SharedContent\media\splash-sdk.png" />
-    <Image Include="..\..\..\SharedContent\media\squaretile-sdk.png" />
-    <Image Include="..\..\..\SharedContent\media\storelogo-sdk.png" />
-    <Image Include="..\..\..\SharedContent\media\tile-sdk.png" />
-    <Image Include="..\..\..\SharedContent\media\windows-sdk.png" />
+    <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
+      <Link>Assets\microsoft-sdk.png</Link>
+    </Image>
+    <Image Include="..\..\..\SharedContent\media\smalltile-sdk.png">
+      <Link>Assets\smalltile-sdk.png</Link>
+    </Image>
+    <Image Include="..\..\..\SharedContent\media\splash-sdk.png">
+      <Link>Assets\splash-sdk.png</Link>
+    </Image>
+    <Image Include="..\..\..\SharedContent\media\squaretile-sdk.png">
+      <Link>Assets\squaretile-sdk.png</Link>
+    </Image>
+    <Image Include="..\..\..\SharedContent\media\storelogo-sdk.png">
+      <Link>Assets\storelogo-sdk.png</Link>
+    </Image>
+    <Image Include="..\..\..\SharedContent\media\tile-sdk.png">
+      <Link>Assets\tile-sdk.png</Link>
+    </Image>
+    <Image Include="..\..\..\SharedContent\media\windows-sdk.png">
+      <Link>Assets\windows-sdk.png</Link>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
