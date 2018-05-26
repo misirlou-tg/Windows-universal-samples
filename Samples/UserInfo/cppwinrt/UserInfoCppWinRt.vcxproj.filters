@@ -17,7 +17,9 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="MainPage.cpp" />
-    <ClCompile Include="Generated Files\module.g.cpp" />
+    <ClCompile Include="Generated Files\module.g.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -59,6 +61,9 @@
     </Filter>
     <Filter Include="Styles">
       <UniqueIdentifier>{b4a49433-d8c4-482a-b465-8b4384fef306}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{54ac0374-6a3f-4be8-af8a-745e33d4c3af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
