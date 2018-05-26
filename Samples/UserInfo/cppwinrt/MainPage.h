@@ -6,7 +6,7 @@
 
 #include "MainPage.g.h"
 
-namespace winrt::SDKTemplate::implementation
+namespace winrt::UserInfoCppWinRt::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
@@ -16,7 +16,7 @@ namespace winrt::SDKTemplate::implementation
     };
 }
 
-namespace winrt::SDKTemplate::factory_implementation
+namespace winrt::UserInfoCppWinRt::factory_implementation
 {
     struct MainPage : MainPageT<MainPage, implementation::MainPage>
     {
