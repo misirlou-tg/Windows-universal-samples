@@ -20,19 +20,26 @@ namespace winrt::UserInfoCppWinRt::implementation
         SampleTitle().Text(FEATURE_NAME);
     }
 
-    void MainPage::Button_Click(IInspectable const&, RoutedEventArgs const&)
+    void MainPage::Button_Click(IInspectable const& sender, RoutedEventArgs const& args)
     {
+        UNREFERENCED_PARAMETER(sender);
+        UNREFERENCED_PARAMETER(args);
     }
 
     void MainPage::ScenarioControl_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& args)
     {
+        UNREFERENCED_PARAMETER(sender);
+        UNREFERENCED_PARAMETER(args);
     }
 
     void MainPage::Footer_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args)
     {
+        UNREFERENCED_PARAMETER(sender);
+        UNREFERENCED_PARAMETER(args);
     }
 
     void MainPage::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args) const
     {
+        UNREFERENCED_PARAMETER(args);
     }
 }
