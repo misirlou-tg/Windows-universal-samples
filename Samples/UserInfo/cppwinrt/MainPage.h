@@ -16,7 +16,7 @@ namespace winrt::UserInfoCppWinRt::implementation
     {
         MainPage();
 
-        virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args) const;
+        virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args);
 
         void Button_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void ScenarioControl_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& args);
