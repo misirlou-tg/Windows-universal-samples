@@ -15,6 +15,8 @@ namespace winrt::UserInfoCppWinRt::implementation
     struct MainPage : MainPageT<MainPage>
     {
         MainPage();
+        hstring FeatureName();
+        Windows::Foundation::Collections::StringMap Scenarios();
 
         virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args);
 
