@@ -1,0 +1,9 @@
+namespace SDKTemplate
+{
+    [default_interface]
+    runtimeclass Scenario2_WatchUsers : Windows.UI.Xaml.Controls.Page
+    {
+        Scenario2_WatchUsers();
+        Int32 MyProperty;
+    }
+}

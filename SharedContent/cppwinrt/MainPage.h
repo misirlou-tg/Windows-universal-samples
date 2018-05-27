@@ -12,6 +12,12 @@
 
 namespace winrt::SDKTemplate::implementation
 {
+    enum NotifyType
+    {
+        StatusMessage,
+        ErrorMessage
+    };
+
     struct MainPage : MainPageT<MainPage>
     {
         MainPage();
@@ -22,9 +28,13 @@ namespace winrt::SDKTemplate::implementation
         void ScenarioControl_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& args);
         void Footer_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
 
+        void NotifyUser(hstring message, NotifyType type);
+
     private:
         static hstring FeatureName();
         static Windows::Foundation::Collections::StringMap Scenarios();
+
+        void UpdateStatus(hstring message, NotifyType type);
     };
 }
 

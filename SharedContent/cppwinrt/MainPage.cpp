@@ -5,6 +5,7 @@ using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Interop;
 
 // TODO: Would like this to be in the SDKTemplate namespace
 //       (the issue was that the generated files were in SDKTemplate sub-dir)
@@ -51,8 +52,27 @@ namespace winrt::SDKTemplate::implementation
 
     void MainPage::ScenarioControl_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& args)
     {
-        UNREFERENCED_PARAMETER(sender);
         UNREFERENCED_PARAMETER(args);
+
+        auto scenarioListBox = sender.as<ListBox>();
+        auto item = scenarioListBox.SelectedItem().try_as<ListBoxItem>();
+        if (item != nullptr)
+        {
+            // Clear the status block when changing scenarios
+            NotifyUser(L"", NotifyType::StatusMessage);
+
+            // Navigate to the selected scenario.
+            TypeName scenarioType{ item.Name(), TypeKind::Custom };
+            // *******************************************************************
+            // TODO: The CPP/CX version passed 'this' as 'parameter' to Navigate()
+            // *******************************************************************
+            ScenarioFrame().Navigate(scenarioType);
+
+            if (Window::Current().Bounds().Width < 640)
+            {
+                Splitter().IsPaneOpen(false);
+            }
+        }
     }
 
     void MainPage::Footer_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args)
@@ -63,5 +83,17 @@ namespace winrt::SDKTemplate::implementation
         auto buttonTag = button.Tag();
         auto uriText = winrt::unbox_value<hstring>(buttonTag);
         Windows::System::Launcher::LaunchUriAsync(Uri(uriText));
+    }
+
+    void MainPage::NotifyUser(hstring message, NotifyType type)
+    {
+        UNREFERENCED_PARAMETER(message);
+        UNREFERENCED_PARAMETER(type);
+    }
+
+    void MainPage::UpdateStatus(hstring message, NotifyType type)
+    {
+        UNREFERENCED_PARAMETER(message);
+        UNREFERENCED_PARAMETER(type);
     }
 }
