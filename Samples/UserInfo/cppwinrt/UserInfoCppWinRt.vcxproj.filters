@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
+    <ApplicationDefinition Include="..\..\..\SharedContent\xaml\App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainPage.xaml" />
+    <Page Include="..\..\..\SharedContent\cpp\MainPage.xaml" />
     <Page Include="..\..\..\SharedContent\xaml\Styles.xaml">
       <Filter>Styles</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="App.idl" />
-    <Midl Include="MainPage.idl" />
+    <Midl Include="..\..\..\SharedContent\cppwinrt\App.idl" />
+    <Midl Include="..\..\..\SharedContent\cppwinrt\MainPage.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="App.cpp" />
-    <ClCompile Include="MainPage.cpp" />
+    <ClCompile Include="..\..\..\SharedContent\cppwinrt\App.cpp" />
+    <ClCompile Include="..\..\..\SharedContent\cppwinrt\MainPage.cpp" />
     <ClCompile Include="Generated Files\module.g.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -24,8 +24,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="App.h" />
-    <ClInclude Include="MainPage.h" />
+    <ClInclude Include="..\..\..\SharedContent\cppwinrt\App.h" />
+    <ClInclude Include="..\..\..\SharedContent\cppwinrt\MainPage.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
