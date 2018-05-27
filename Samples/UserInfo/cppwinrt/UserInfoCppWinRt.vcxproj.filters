@@ -20,6 +20,7 @@
     <ClCompile Include="Generated Files\module.g.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="SampleConfiguration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
