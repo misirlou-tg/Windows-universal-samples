@@ -6,7 +6,7 @@
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{9c66af83-1d24-4c31-b6dd-c5b3ca34d0eb}</ProjectGuid>
     <ProjectName>UserInfoCppWinRt</ProjectName>
-    <RootNamespace>UserInfoCppWinRt</RootNamespace>
+    <RootNamespace>SDKTemplate</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>

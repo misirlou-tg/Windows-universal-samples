@@ -4,7 +4,7 @@
 using namespace winrt;
 using namespace Windows::Foundation::Collections;
 
-namespace winrt::UserInfoCppWinRt::implementation
+namespace winrt::SDKTemplate::implementation
 {
     hstring MainPage::FeatureName()
     {

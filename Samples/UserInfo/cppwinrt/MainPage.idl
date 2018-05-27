@@ -1,4 +1,4 @@
-namespace UserInfoCppWinRt
+namespace SDKTemplate
 {
     [default_interface]
     runtimeclass MainPage : Windows.UI.Xaml.Controls.Page
