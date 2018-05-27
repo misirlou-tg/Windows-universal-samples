@@ -4,8 +4,10 @@
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
+using namespace Windows::UI::Xaml::Automation::Peers;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Interop;
+using namespace Windows::UI::Xaml::Media;
 
 // TODO: Would like this to be in the SDKTemplate namespace
 //       (the issue was that the generated files were in SDKTemplate sub-dir)
@@ -87,13 +89,55 @@ namespace winrt::SDKTemplate::implementation
 
     void MainPage::NotifyUser(hstring message, NotifyType type)
     {
-        UNREFERENCED_PARAMETER(message);
-        UNREFERENCED_PARAMETER(type);
+        // **************************************************************************************
+        // TODO: Replace thread/context switching with: co_await resume_foreground(Dispatcher());
+        // **************************************************************************************
+        if (Dispatcher().HasThreadAccess())
+        {
+            UpdateStatus(message, type);
+        }
+        else
+        {
+            Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [this, message, type]()
+            {
+                UpdateStatus(message, type);
+            });
+        }
     }
 
     void MainPage::UpdateStatus(hstring message, NotifyType type)
     {
-        UNREFERENCED_PARAMETER(message);
-        UNREFERENCED_PARAMETER(type);
+        switch (type)
+        {
+        case NotifyType::StatusMessage:
+            StatusBorder().Background(SolidColorBrush(Windows::UI::Colors::Green()));
+            break;
+        case NotifyType::ErrorMessage:
+            StatusBorder().Background(SolidColorBrush(Windows::UI::Colors::Red()));
+            break;
+        default:
+            break;
+        }
+
+        StatusBlock().Text(message);
+
+        // Collapse the StatusBlock if it has no text to conserve real estate.
+        if (!StatusBlock().Text().empty())
+        {
+            StatusBorder().Visibility(Windows::UI::Xaml::Visibility::Visible);
+            StatusPanel().Visibility(Windows::UI::Xaml::Visibility::Visible);
+        }
+        else
+        {
+            StatusBorder().Visibility(Windows::UI::Xaml::Visibility::Collapsed);
+            StatusPanel().Visibility(Windows::UI::Xaml::Visibility::Collapsed);
+        }
+
+        // Raise an event if necessary to enable a screen reader to announce the status update.
+        auto peer = FrameworkElementAutomationPeer::FromElement(StatusBlock()).try_as<FrameworkElementAutomationPeer>();
+        if (peer != nullptr)
+        {
+            peer.RaiseAutomationEvent(AutomationEvents::LiveRegionChanged);
+        }
     }
 }
