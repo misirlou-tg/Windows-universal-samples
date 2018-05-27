@@ -83,6 +83,8 @@ namespace winrt::SDKTemplate::implementation
 
         auto button = sender.as<HyperlinkButton>();
         auto buttonTag = button.Tag();
+        // buttonTag is actually a IReference<hstring>, access the hstring with .Value()
+        // But winrt::unbox_value() does this for us
         auto uriText = winrt::unbox_value<hstring>(buttonTag);
         Windows::System::Launcher::LaunchUriAsync(Uri(uriText));
     }
