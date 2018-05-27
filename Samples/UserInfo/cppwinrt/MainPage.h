@@ -10,7 +10,7 @@
 //       (the issue was that the generated files were in SDKTemplate sub-dir)
 //       (could solve by putting that in the include path?)
 
-namespace winrt::UserInfoCppWinRt::implementation
+namespace winrt::SDKTemplate::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
@@ -28,7 +28,7 @@ namespace winrt::UserInfoCppWinRt::implementation
     };
 }
 
-namespace winrt::UserInfoCppWinRt::factory_implementation
+namespace winrt::SDKTemplate::factory_implementation
 {
     struct MainPage : MainPageT<MainPage, implementation::MainPage>
     {
