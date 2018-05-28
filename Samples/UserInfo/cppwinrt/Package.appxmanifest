@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity
-    Name="Microsoft.SDKSamples.UserInfo.CppWinRt"
-    Publisher="CN=Trent"
-    Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="3a1f7710-4c8f-4b79-b4f7-fb2b072e9fad" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <Identity Name="Microsoft.SDKSamples.UserInfo.CppWinRt" Publisher="CN=Trent" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="3a1f7710-4c8f-4b79-b4f7-fb2b072e9fad" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UserInfoCppWinRt</DisplayName>
     <PublisherDisplayName>Trent</PublisherDisplayName>
@@ -18,19 +15,14 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SDKTemplate.App">
-            <uap:VisualElements
-              DisplayName="User Info C++/WinRT Sample"
-              Square150x150Logo="Assets\squareTile-sdk.png"
-              Square44x44Logo="Assets\smallTile-sdk.png"
-              Description="User Info C++/WinRT Sample"
-              BackgroundColor="#00B2F0">
-                <uap:SplashScreen Image="Assets\splash-sdk.png" />
-                <uap:DefaultTile>
-                    <uap:ShowNameOnTiles>
-                        <uap:ShowOn Tile="square150x150Logo" />
-                    </uap:ShowNameOnTiles>
-                </uap:DefaultTile>
-            </uap:VisualElements>
+      <uap:VisualElements DisplayName="User Info C++/WinRT Sample" Square150x150Logo="Assets\squareTile-sdk.png" Square44x44Logo="Assets\smallTile-sdk.png" Description="User Info C++/WinRT Sample" BackgroundColor="#00B2F0">
+        <uap:SplashScreen Image="Assets\splash-sdk.png" />
+        <uap:DefaultTile>
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+      </uap:VisualElements>
     </Application>
   </Applications>
   <Capabilities>
