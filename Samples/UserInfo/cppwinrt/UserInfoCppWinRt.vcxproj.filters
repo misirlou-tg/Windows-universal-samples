@@ -14,6 +14,8 @@
   <ItemGroup>
     <Midl Include="..\..\..\SharedContent\cppwinrt\App.idl" />
     <Midl Include="..\..\..\SharedContent\cppwinrt\MainPage.idl" />
+    <Midl Include="Scenario1_FindUsers.idl" />
+    <Midl Include="Scenario2_WatchUsers.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -23,11 +25,15 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="SampleConfiguration.cpp" />
+    <ClCompile Include="Scenario1_FindUsers.cpp" />
+    <ClCompile Include="Scenario2_WatchUsers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="..\..\..\SharedContent\cppwinrt\App.h" />
     <ClInclude Include="..\..\..\SharedContent\cppwinrt\MainPage.h" />
+    <ClInclude Include="Scenario1_FindUsers.h" />
+    <ClInclude Include="Scenario2_WatchUsers.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
