@@ -73,7 +73,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>%(AdditionalOptions) /permissive- /bigobj</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /permissive- /bigobj /await</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir);..\..\..\SharedContent\cppwinrt;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(ProjectDir);..\..\..\SharedContent\cppwinrt;$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -97,6 +97,10 @@
     </ClInclude>
     <ClInclude Include="Scenario2_WatchUsers.h">
       <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="UserViewModel.h">
+      <DependentUpon>UserViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
@@ -166,6 +170,10 @@
       <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UserViewModel.cpp">
+      <DependentUpon>UserViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="..\..\..\SharedContent\cppwinrt\App.idl">
@@ -181,6 +189,9 @@
     <Midl Include="Scenario2_WatchUsers.idl">
       <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="UserViewModel.idl">
+      <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
     <Midl Include="..\..\..\SharedContent\cppwinrt\MainPage.idl" />
     <Midl Include="Scenario1_FindUsers.idl" />
     <Midl Include="Scenario2_WatchUsers.idl" />
+    <Midl Include="UserViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="SampleConfiguration.cpp" />
     <ClCompile Include="Scenario1_FindUsers.cpp" />
     <ClCompile Include="Scenario2_WatchUsers.cpp" />
+    <ClCompile Include="UserViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -34,6 +36,7 @@
     <ClInclude Include="..\..\..\SharedContent\cppwinrt\MainPage.h" />
     <ClInclude Include="Scenario1_FindUsers.h" />
     <ClInclude Include="Scenario2_WatchUsers.h" />
+    <ClCompile Include="UserViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">

@@ -15,6 +15,9 @@ namespace winrt::SDKTemplate::implementation
         virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args);
 
         void ShowProperties();
+
+    private:
+        Windows::Foundation::Collections::IVector<SDKTemplate::UserViewModel> models;
     };
 }
 
