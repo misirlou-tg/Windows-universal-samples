@@ -92,11 +92,11 @@
       <DependentUpon>..\..\..\SharedContent\cpp\MainPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="Scenario1_FindUsers.h">
-      <DependentUpon>Scenario1_FindUsers.xaml</DependentUpon>
+      <DependentUpon>..\shared\Scenario1_FindUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Scenario2_WatchUsers.h">
-      <DependentUpon>Scenario2_WatchUsers.xaml</DependentUpon>
+      <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
@@ -110,10 +110,10 @@
     <Page Include="..\..\..\SharedContent\cpp\MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Scenario1_FindUsers.xaml">
+    <Page Include="..\shared\Scenario1_FindUsers.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Scenario2_WatchUsers.xaml">
+    <Page Include="..\shared\Scenario2_WatchUsers.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -159,11 +159,11 @@
     <ClCompile Include="Generated Files\module.g.cpp" />
     <ClCompile Include="SampleConfiguration.cpp" />
     <ClCompile Include="Scenario1_FindUsers.cpp">
-      <DependentUpon>Scenario1_FindUsers.xaml</DependentUpon>
+      <DependentUpon>..\shared\Scenario1_FindUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Scenario2_WatchUsers.cpp">
-      <DependentUpon>Scenario2_WatchUsers.xaml</DependentUpon>
+      <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
   </ItemGroup>
@@ -175,11 +175,11 @@
       <DependentUpon>..\..\..\SharedContent\cpp\MainPage.xaml</DependentUpon>
     </Midl>
     <Midl Include="Scenario1_FindUsers.idl">
-      <DependentUpon>Scenario1_FindUsers.xaml</DependentUpon>
+      <DependentUpon>..\shared\Scenario1_FindUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Scenario2_WatchUsers.idl">
-      <DependentUpon>Scenario2_WatchUsers.xaml</DependentUpon>
+      <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>

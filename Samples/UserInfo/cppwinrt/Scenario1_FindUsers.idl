@@ -4,6 +4,6 @@ namespace SDKTemplate
     runtimeclass Scenario1_FindUsers : Windows.UI.Xaml.Controls.Page
     {
         Scenario1_FindUsers();
-        Int32 MyProperty;
+        void ShowProperties();
     }
 }
