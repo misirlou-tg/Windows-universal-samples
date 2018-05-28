@@ -1,0 +1,8 @@
+namespace SDKTemplate
+{
+    runtimeclass UserViewModel : Windows.UI.Xaml.DependencyObject, Windows.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        String UserId { get; };
+        String DisplayName;
+    }
+}
