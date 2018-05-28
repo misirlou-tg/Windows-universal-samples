@@ -4,6 +4,10 @@ namespace SDKTemplate
     runtimeclass Scenario2_WatchUsers : Windows.UI.Xaml.Controls.Page
     {
         Scenario2_WatchUsers();
-        Int32 MyProperty;
+
+        void StartWatching();
+        void StopWatching();
+
+        Windows.Foundation.Collections.IVector<IInspectable> Users{ get; };
     }
 }

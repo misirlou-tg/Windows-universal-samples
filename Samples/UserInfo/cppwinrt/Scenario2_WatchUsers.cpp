@@ -11,18 +11,21 @@ namespace winrt::SDKTemplate::implementation
         InitializeComponent();
     }
 
-    int32_t Scenario2_WatchUsers::MyProperty()
+    void Scenario2_WatchUsers::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args)
     {
-        throw hresult_not_implemented();
+        UNREFERENCED_PARAMETER(args);
     }
 
-    void Scenario2_WatchUsers::MyProperty(int32_t /* value */)
+    void Scenario2_WatchUsers::StartWatching()
     {
-        throw hresult_not_implemented();
     }
 
-    void Scenario2_WatchUsers::ClickHandler(IInspectable const&, RoutedEventArgs const&)
+    void Scenario2_WatchUsers::StopWatching()
     {
-        Button().Content(box_value(L"Clicked"));
+    }
+
+    Windows::Foundation::Collections::IVector<IInspectable> Scenario2_WatchUsers::Users()
+    {
+        return winrt::single_threaded_vector<IInspectable>();
     }
 }

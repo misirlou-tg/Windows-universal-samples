@@ -11,18 +11,12 @@ namespace winrt::SDKTemplate::implementation
         InitializeComponent();
     }
 
-    int32_t Scenario1_FindUsers::MyProperty()
+    void Scenario1_FindUsers::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args)
     {
-        throw hresult_not_implemented();
+        UNREFERENCED_PARAMETER(args);
     }
 
-    void Scenario1_FindUsers::MyProperty(int32_t /* value */)
+    void Scenario1_FindUsers::ShowProperties()
     {
-        throw hresult_not_implemented();
-    }
-
-    void Scenario1_FindUsers::ClickHandler(IInspectable const&, RoutedEventArgs const&)
-    {
-        Button().Content(box_value(L"Clicked"));
     }
 }

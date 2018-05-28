@@ -12,10 +12,12 @@ namespace winrt::SDKTemplate::implementation
     {
         Scenario2_WatchUsers();
 
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
+        virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args);
 
-        void ClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void StartWatching();
+        void StopWatching();
+
+        Windows::Foundation::Collections::IVector<IInspectable> Users();
     };
 }
 
