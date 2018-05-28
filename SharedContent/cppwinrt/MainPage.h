@@ -6,10 +6,6 @@
 
 #include "MainPage.g.h"
 
-// TODO: Would like this to be in the SDKTemplate namespace
-//       (the issue was that the generated files were in SDKTemplate sub-dir)
-//       (could solve by putting that in the include path?)
-
 namespace winrt::SDKTemplate::implementation
 {
     enum NotifyType
@@ -31,8 +27,14 @@ namespace winrt::SDKTemplate::implementation
         void NotifyUser(hstring message, NotifyType type);
 
     private:
+        struct Scenario
+        {
+            hstring Title;
+            hstring ClassName;
+        };
+
         static hstring FeatureName();
-        static Windows::Foundation::Collections::StringMap Scenarios();
+        static std::vector<Scenario> Scenarios();
 
         void UpdateStatus(hstring message, NotifyType type);
     };

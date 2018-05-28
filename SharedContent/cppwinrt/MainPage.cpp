@@ -34,10 +34,10 @@ namespace winrt::SDKTemplate::implementation
             ListBoxItem item;
             auto style = Application::Current().Resources().Lookup(winrt::box_value(L"ListItemTextStyle"));
 
-            textBlock.Text(winrt::to_hstring(i++) + L") " + s.Key());
+            textBlock.Text(winrt::to_hstring(i++) + L") " + s.Title);
             textBlock.Style(style.as<Windows::UI::Xaml::Style>());
 
-            item.Name(s.Value());
+            item.Name(s.ClassName);
             item.Content(textBlock);
             itemCollection.push_back(item);
         }
