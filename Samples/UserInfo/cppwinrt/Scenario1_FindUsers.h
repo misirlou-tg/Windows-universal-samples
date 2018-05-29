@@ -17,7 +17,7 @@ namespace winrt::SDKTemplate::implementation
         void ShowProperties();
 
     private:
-        Windows::Foundation::Collections::IVector<SDKTemplate::UserViewModel> models;
+        Windows::Foundation::Collections::IVector<IInspectable> models;
     };
 }
 
