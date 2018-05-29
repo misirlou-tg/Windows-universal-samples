@@ -2,6 +2,7 @@
 #include "Scenario1_FindUsers.h"
 
 #include "UserViewModel.h"
+#include "single_threaded_observable_vector.h"
 
 using namespace winrt;
 using namespace Windows::Foundation;
@@ -15,10 +16,12 @@ namespace winrt::SDKTemplate::implementation
     {
         InitializeComponent();
 
-        models = winrt::single_threaded_vector<SDKTemplate::UserViewModel>();
+        // Neither of these is working, the observable vector crashes, the other doesn't display anything
+        //models = single_threaded_observable_vector<IInspectable>();
+        models = winrt::single_threaded_vector<IInspectable>();
     }
 
-    static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IVector<SDKTemplate::UserViewModel> &models, ComboBox userList)
+    static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IVector<IInspectable> &models, ComboBox userList)
     {
         auto users = co_await User::FindAllAsync();
         auto nextUserNumber = 1;
