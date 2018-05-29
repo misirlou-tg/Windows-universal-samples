@@ -16,9 +16,8 @@ namespace winrt::SDKTemplate::implementation
     {
         InitializeComponent();
 
-        // Neither of these is working, the observable vector crashes, the other doesn't display anything
-        //models = single_threaded_observable_vector<IInspectable>();
-        models = winrt::single_threaded_vector<IInspectable>();
+        models = winrt::make<SDKTemplate::implementation::single_threaded_observable_vector<IInspectable>>();
+        UserList().DataContext(models);
     }
 
     static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IVector<IInspectable> &models, ComboBox userList)
@@ -41,14 +40,12 @@ namespace winrt::SDKTemplate::implementation
         // **************************************************************************************
         if (userList.Dispatcher().HasThreadAccess())
         {
-            userList.DataContext(models);
             userList.SelectedIndex(0);
         }
         else
         {
             userList.Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [&userList, &models]()
             {
-                userList.DataContext(models);
                 userList.SelectedIndex(0);
             });
         }
