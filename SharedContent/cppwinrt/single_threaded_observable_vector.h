@@ -4,16 +4,16 @@
 
 namespace winrt::SDKTemplate::implementation
 {
-    using namespace Windows::Foundation::Collections;
+    namespace wfc = Windows::Foundation::Collections;
 
     template <typename T>
     struct single_threaded_observable_vector : implements<single_threaded_observable_vector<T>,
-        IObservableVector<T>,
-        IVector<T>,
-        IVectorView<T>,
-        IIterable<T>>
+        wfc::IObservableVector<T>,
+        wfc::IVector<T>,
+        wfc::IVectorView<T>,
+        wfc::IIterable<T>>
     {
-        event_token VectorChanged(VectorChangedEventHandler<T> const& handler)
+        event_token VectorChanged(wfc::VectorChangedEventHandler<T> const& handler)
         {
             return m_changed.add(handler);
         }
@@ -38,7 +38,7 @@ namespace winrt::SDKTemplate::implementation
             return static_cast<uint32_t>(m_values.size());
         }
 
-        IVectorView<T> GetView()
+        wfc::IVectorView<T> GetView()
         {
             return *this;
         }
@@ -58,7 +58,7 @@ namespace winrt::SDKTemplate::implementation
 
             ++m_version;
             m_values[index] = value;
-            m_changed(*this, make<args>(CollectionChange::ItemChanged, index));
+            m_changed(*this, make<args>(wfc::CollectionChange::ItemChanged, index));
         }
 
         void InsertAt(uint32_t const index, T const& value)
@@ -70,7 +70,7 @@ namespace winrt::SDKTemplate::implementation
 
             ++m_version;
             m_values.insert(m_values.begin() + index, value);
-            m_changed(*this, make<args>(CollectionChange::ItemInserted, index));
+            m_changed(*this, make<args>(wfc::CollectionChange::ItemInserted, index));
         }
 
         void RemoveAt(uint32_t const index)
@@ -82,14 +82,14 @@ namespace winrt::SDKTemplate::implementation
 
             ++m_version;
             m_values.erase(m_values.begin() + index);
-            m_changed(*this, make<args>(CollectionChange::ItemRemoved, index));
+            m_changed(*this, make<args>(wfc::CollectionChange::ItemRemoved, index));
         }
 
         void Append(T const& value)
         {
             ++m_version;
             m_values.push_back(value);
-            m_changed(*this, make<args>(CollectionChange::ItemInserted, Size() - 1));
+            m_changed(*this, make<args>(wfc::CollectionChange::ItemInserted, Size() - 1));
         }
 
         void RemoveAtEnd()
@@ -101,14 +101,14 @@ namespace winrt::SDKTemplate::implementation
 
             ++m_version;
             m_values.pop_back();
-            m_changed(*this, make<args>(CollectionChange::ItemRemoved, Size()));
+            m_changed(*this, make<args>(wfc::CollectionChange::ItemRemoved, Size()));
         }
 
         void Clear() noexcept
         {
             ++m_version;
             m_values.clear();
-            m_changed(*this, make<args>(CollectionChange::Reset, 0));
+            m_changed(*this, make<args>(wfc::CollectionChange::Reset, 0));
         }
 
         uint32_t GetMany(uint32_t const startIndex, array_view<T> values) const
@@ -133,10 +133,10 @@ namespace winrt::SDKTemplate::implementation
         {
             ++m_version;
             m_values.assign(value.begin(), value.end());
-            m_changed(*this, make<args>(CollectionChange::Reset, 0));
+            m_changed(*this, make<args>(wfc::CollectionChange::Reset, 0));
         }
 
-        IIterator<T> First()
+        wfc::IIterator<T> First()
         {
             return make<iterator>(this);
         }
@@ -144,18 +144,18 @@ namespace winrt::SDKTemplate::implementation
     private:
 
         std::vector<T> m_values;
-        event<VectorChangedEventHandler<T>> m_changed;
+        event<wfc::VectorChangedEventHandler<T>> m_changed;
         uint32_t m_version{};
 
-        struct args : implements<args, IVectorChangedEventArgs>
+        struct args : implements<args, wfc::IVectorChangedEventArgs>
         {
-            args(CollectionChange const change, uint32_t const index) :
+            args(wfc::CollectionChange const change, uint32_t const index) :
                 m_change(change),
                 m_index(index)
             {
             }
 
-            CollectionChange CollectionChange() const
+            wfc::CollectionChange CollectionChange() const
             {
                 return m_change;
             }
@@ -167,11 +167,11 @@ namespace winrt::SDKTemplate::implementation
 
         private:
 
-            Windows::Foundation::Collections::CollectionChange const m_change{};
+            wfc::CollectionChange const m_change{};
             uint32_t const m_index{};
         };
 
-        struct iterator : implements<iterator, IIterator<T>>
+        struct iterator : implements<iterator, wfc::IIterator<T>>
         {
             explicit iterator(single_threaded_observable_vector<T>* owner) noexcept :
                 m_version(owner->m_version),
