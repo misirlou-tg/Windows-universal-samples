@@ -1,5 +1,7 @@
 namespace SDKTemplate
 {
+    // TODO: Tried adding this attribute, saw this in some of the XML binding samples on MS docs
+    [default_interface]
     runtimeclass UserViewModel : Windows.UI.Xaml.DependencyObject, Windows.UI.Xaml.Data.INotifyPropertyChanged
     {
         String UserId { get; };

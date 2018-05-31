@@ -16,8 +16,11 @@ namespace winrt::SDKTemplate::implementation
 
         void ShowProperties();
 
+        SDKTemplate::UserViewModel CurrentUser();
+
     private:
         Windows::Foundation::Collections::IVector<IInspectable> models;
+        SDKTemplate::UserViewModel _currentUser{ nullptr };
     };
 }
 

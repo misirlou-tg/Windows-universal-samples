@@ -18,6 +18,27 @@ namespace winrt::SDKTemplate::implementation
 
         models = winrt::make<SDKTemplate::implementation::single_threaded_observable_vector<IInspectable>>();
         UserList().DataContext(models);
+
+        _currentUser = winrt::make<UserViewModel>(L"curr user id", L"Current User");
+
+        namespace wfc = Windows::Foundation::Collections;
+        auto i1 = models.as<wfc::IObservableVector<IInspectable>>();
+        i1.VectorChanged([](wfc::IObservableVector<IInspectable> const& sender, wfc::IVectorChangedEventArgs const& args)
+        {
+            ::OutputDebugStringW((hstring(L"models changed, collectionChange: ") + winrt::to_hstring((int32_t)args.CollectionChange()) + L", index: " + winrt::to_hstring(args.Index()) + L"\n").c_str());
+            auto m = sender.GetAt(args.Index());
+            auto x = m.try_as<IDependencyObject2>();
+            ::OutputDebugStringW(x == nullptr ? L"  * IDependencyObject2 not found\n" : L"  * IDependencyObject2 found!\n");
+            auto u = m.as<IUserViewModel>();
+            ::OutputDebugStringW((hstring(L"  * user.DisplayName: ") + u.DisplayName() + L"\n").c_str());
+        });
+
+        auto i2 = _currentUser.try_as<Windows::UI::Xaml::Data::INotifyPropertyChanged>();
+        i2.PropertyChanged([](Windows::Foundation::IInspectable const&, Windows::UI::Xaml::Data::PropertyChangedEventArgs const& args)
+        {
+            auto n = args.PropertyName();
+            ::OutputDebugStringW((hstring(L"_currentUser changed, PropertyName: ") + n + L"\n").c_str());
+        });
     }
 
     static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IVector<IInspectable> &models, ComboBox userList)
@@ -68,5 +89,12 @@ namespace winrt::SDKTemplate::implementation
 
     void Scenario1_FindUsers::ShowProperties()
     {
+        models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(L"another user", L"Another User"));
+        _currentUser.DisplayName(L"Changed!");
+    }
+
+    SDKTemplate::UserViewModel Scenario1_FindUsers::CurrentUser()
+    {
+        return _currentUser;
     }
 }

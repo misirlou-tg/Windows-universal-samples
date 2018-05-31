@@ -8,8 +8,10 @@ using namespace Windows::UI::Xaml::Data;
 namespace winrt::SDKTemplate::implementation
 {
     UserViewModel::UserViewModel(hstring const& userId, hstring const& displayName)
-        : userId(userId), displayName(displayName)
+        : userId(userId)
     {
+        // TODO: Doing it this way because the XAML binding sample on MS docs did this (I don't think it matters)
+        DisplayName(displayName);
     }
 
     hstring UserViewModel::UserId()

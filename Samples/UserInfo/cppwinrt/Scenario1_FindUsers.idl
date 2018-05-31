@@ -1,9 +1,13 @@
+import "UserViewModel.idl";
+
 namespace SDKTemplate
 {
+    // TODO: Not sure if this attribute is needed. Look at the XAML binding samples on MS docs.
     [default_interface]
     runtimeclass Scenario1_FindUsers : Windows.UI.Xaml.Controls.Page
     {
         Scenario1_FindUsers();
         void ShowProperties();
+        UserViewModel CurrentUser{ get; };
     }
 }
