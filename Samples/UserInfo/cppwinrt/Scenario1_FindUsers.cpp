@@ -24,6 +24,7 @@ namespace winrt::SDKTemplate::implementation
     {
         auto users = co_await User::FindAllAsync();
         auto nextUserNumber = 1;
+        std::vector<hstring> results;
         for (auto&& user : users)
         {
             auto displayNameProp = co_await user.GetPropertyAsync(KnownUserProperties::DisplayName());
@@ -32,20 +33,27 @@ namespace winrt::SDKTemplate::implementation
             {
                 displayName = hstring(L"User #") + winrt::to_hstring(nextUserNumber++);
             }
-
-            models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(user.NonRoamableId(), displayName));
+            results.push_back(displayName);
         }
         // **************************************************************************************
         // TODO: Replace thread/context switching with: co_await resume_foreground(Dispatcher());
         // **************************************************************************************
         if (userList.Dispatcher().HasThreadAccess())
         {
+            for (uint32_t index = 0; index < users.Size(); index++)
+            {
+                models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
+            }
             userList.SelectedIndex(0);
         }
         else
         {
-            userList.Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [&userList, &models]()
+            userList.Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [&userList, &models, users, results]()
             {
+                for (uint32_t index = 0; index < users.Size(); index++)
+                {
+                    models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
+                }
                 userList.SelectedIndex(0);
             });
         }
