@@ -1,0 +1,7 @@
+With this commit the UserList ComboBox is only partially working. I believe the issues are with the XamlCompiler that generates the C++/WinRT code.
+
+We correctly bind it to the observable vector (with UserList().DataContext(models)). The XAML is getting notifications when items are added to the vector, as it creates a new entry in the list box. (I also verified in the test-xaml-binding branch that this works post-creation, during a button click).
+
+What is not working is the binding between the ComboBox item and the UserViewModel (DisplayMemberPath="DisplayName" in the XAML).
+
+I verified in the test-xaml-binding branch that binding between a Button and a UserViewModel item works. When the UI was created/loaded it updated the button text via the binding. I found in the generated code and it only updates the text once. I'm not sure if that was an issue with the XAML or the XamlCompiler
