@@ -9,10 +9,6 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Interop;
 using namespace Windows::UI::Xaml::Media;
 
-// TODO: Would like this to be in the SDKTemplate namespace
-//       (the issue was that the generated files were in SDKTemplate sub-dir)
-//       (could solve by putting that in the include path?)
-
 namespace winrt::SDKTemplate::implementation
 {
     MainPage::MainPage()
@@ -67,6 +63,9 @@ namespace winrt::SDKTemplate::implementation
             TypeName scenarioType{ item.Name(), TypeKind::Custom };
             // *******************************************************************
             // TODO: The CPP/CX version passed 'this' as 'parameter' to Navigate()
+            //       (this likely won't work, any app class that needs a reference
+            //       to this page will have to get it from a static weak reference
+            //       that we can initialize with get_weak())
             // *******************************************************************
             ScenarioFrame().Navigate(scenarioType);
 
