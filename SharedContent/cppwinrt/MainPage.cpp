@@ -88,22 +88,10 @@ namespace winrt::SDKTemplate::implementation
         Windows::System::Launcher::LaunchUriAsync(Uri(uriText));
     }
 
-    void MainPage::NotifyUser(hstring message, NotifyType type)
+    IAsyncAction MainPage::NotifyUser(hstring message, NotifyType type)
     {
-        // **************************************************************************************
-        // TODO: Replace thread/context switching with: co_await resume_foreground(Dispatcher());
-        // **************************************************************************************
-        if (Dispatcher().HasThreadAccess())
-        {
-            UpdateStatus(message, type);
-        }
-        else
-        {
-            Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [this, message, type]()
-            {
-                UpdateStatus(message, type);
-            });
-        }
+        co_await winrt::resume_foreground(Dispatcher());
+        UpdateStatus(message, type);
     }
 
     void MainPage::UpdateStatus(hstring message, NotifyType type)
