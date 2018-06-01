@@ -35,28 +35,14 @@ namespace winrt::SDKTemplate::implementation
             }
             results.push_back(displayName);
         }
-        // **************************************************************************************
-        // TODO: Replace thread/context switching with: co_await resume_foreground(Dispatcher());
-        // **************************************************************************************
-        if (userList.Dispatcher().HasThreadAccess())
+
+        // Note, the C++/CX version of this DID NOT switch to the UI thread
+        co_await winrt::resume_foreground(userList.Dispatcher());
+        for (uint32_t index = 0; index < users.Size(); index++)
         {
-            for (uint32_t index = 0; index < users.Size(); index++)
-            {
-                models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
-            }
-            userList.SelectedIndex(0);
+            models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
         }
-        else
-        {
-            userList.Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [&userList, &models, users, results]()
-            {
-                for (uint32_t index = 0; index < users.Size(); index++)
-                {
-                    models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
-                }
-                userList.SelectedIndex(0);
-            });
-        }
+        userList.SelectedIndex(0);
     }
 
     void Scenario1_FindUsers::OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args)
