@@ -24,7 +24,7 @@ namespace winrt::SDKTemplate::implementation
         void ScenarioControl_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& args);
         void Footer_Click(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
 
-        void NotifyUser(hstring message, NotifyType type);
+        Windows::Foundation::IAsyncAction NotifyUser(hstring message, NotifyType type);
 
     private:
         struct Scenario

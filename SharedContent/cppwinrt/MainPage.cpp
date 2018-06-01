@@ -9,10 +9,6 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Interop;
 using namespace Windows::UI::Xaml::Media;
 
-// TODO: Would like this to be in the SDKTemplate namespace
-//       (the issue was that the generated files were in SDKTemplate sub-dir)
-//       (could solve by putting that in the include path?)
-
 namespace winrt::SDKTemplate::implementation
 {
     MainPage::MainPage()
@@ -67,6 +63,9 @@ namespace winrt::SDKTemplate::implementation
             TypeName scenarioType{ item.Name(), TypeKind::Custom };
             // *******************************************************************
             // TODO: The CPP/CX version passed 'this' as 'parameter' to Navigate()
+            //       (this likely won't work, any app class that needs a reference
+            //       to this page will have to get it from a static weak reference
+            //       that we can initialize with get_weak())
             // *******************************************************************
             ScenarioFrame().Navigate(scenarioType);
 
@@ -89,22 +88,10 @@ namespace winrt::SDKTemplate::implementation
         Windows::System::Launcher::LaunchUriAsync(Uri(uriText));
     }
 
-    void MainPage::NotifyUser(hstring message, NotifyType type)
+    IAsyncAction MainPage::NotifyUser(hstring message, NotifyType type)
     {
-        // **************************************************************************************
-        // TODO: Replace thread/context switching with: co_await resume_foreground(Dispatcher());
-        // **************************************************************************************
-        if (Dispatcher().HasThreadAccess())
-        {
-            UpdateStatus(message, type);
-        }
-        else
-        {
-            Dispatcher().RunAsync(Windows::UI::Core::CoreDispatcherPriority::Normal, [this, message, type]()
-            {
-                UpdateStatus(message, type);
-            });
-        }
+        co_await winrt::resume_foreground(Dispatcher());
+        UpdateStatus(message, type);
     }
 
     void MainPage::UpdateStatus(hstring message, NotifyType type)
