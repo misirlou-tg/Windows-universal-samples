@@ -9,6 +9,7 @@ using namespace Windows::Foundation;
 using namespace Windows::System;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Media::Imaging;
 
 namespace winrt::SDKTemplate::implementation
 {
@@ -52,7 +53,80 @@ namespace winrt::SDKTemplate::implementation
         GetUsersAsync(models, UserList());
     }
 
+    static IAsyncAction ShowPropertiesAsync(User user, TextBlock resultsText, Image profileImage)
+    {
+        auto desiredProperties = std::vector<hstring>
+        {
+            KnownUserProperties::FirstName(),
+            KnownUserProperties::LastName(),
+            KnownUserProperties::ProviderName(),
+            KnownUserProperties::AccountName(),
+            KnownUserProperties::GuestHost(),
+            KnownUserProperties::PrincipalName(),
+            KnownUserProperties::DomainName(),
+            KnownUserProperties::SessionInitiationProtocolUri()
+        };
+
+        // We construct a copy of desiredProperties here (instead of using std::move()) because we need desiredProperties later
+        auto values = co_await user.GetPropertiesAsync(std::vector(desiredProperties));
+        auto result = hstring(L"NonRoamableId: ") + user.NonRoamableId() + L"\n";
+        result = result + L"Type: " + winrt::to_hstring(static_cast<int>(user.Type())) + L"\n";
+        result = result + L"AuthenticationStatus: " + winrt::to_hstring(static_cast<int>(user.AuthenticationStatus())) + L"\n";
+        for (auto&& propertyName : desiredProperties)
+        {
+            // This works because we know all the properties are strings
+            auto propertyValue = winrt::unbox_value<hstring>(values.Lookup(propertyName));
+            result = result + propertyName + L": " + propertyValue + L"\n";
+        }
+        resultsText.Text(result);
+
+        auto streamReference = co_await user.GetPictureAsync(UserPictureSize::Size64x64);
+        if (streamReference != nullptr)
+        {
+            auto stream = co_await streamReference.OpenReadAsync();
+            if (stream != nullptr)
+            {
+                BitmapImage bitmapImage;
+                co_await bitmapImage.SetSourceAsync(stream);
+                profileImage.Source(bitmapImage);
+            }
+        }
+    }
+
     void Scenario1_FindUsers::ShowProperties()
     {
+        auto model = UserList().SelectedValue().try_as<SDKTemplate::UserViewModel>();
+        if (model != nullptr)
+        {
+            ResultsText().Text(L"");
+            ProfileImage().Source(nullptr);
+            // *******************************************************************************
+            // TODO: The C++/CX code called MainPage::NotifyUser() to clear the status message
+            // *******************************************************************************
+
+            User user(nullptr);
+            try
+            {
+                user = User::GetFromId(model.UserId());
+            }
+            // *****************************************************************
+            // TODO: What exception to catch here? (the C++/CX caught Exception)
+            // *****************************************************************
+            catch (...)
+            {
+            }
+
+            if (user != nullptr)
+            {
+                ShowPropertiesAsync(user, ResultsText(), ProfileImage());
+            }
+        }
+        else
+        {
+            // ***********************************************************************
+            // TODO: The C++/CX code called MainPage::NotifyUser() to display an error
+            // ***********************************************************************
+            ResultsText().Text(L"No user selected");
+        }
     }
 }
