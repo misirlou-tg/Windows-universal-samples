@@ -18,7 +18,7 @@ namespace winrt::SDKTemplate::implementation
     {
         InitializeComponent();
 
-        models = winrt::make<SDKTemplate::implementation::single_threaded_observable_vector<IInspectable>>();
+        models = winrt::make<single_threaded_observable_vector<IInspectable>>();
         UserList().DataContext(models);
     }
 
@@ -42,7 +42,7 @@ namespace winrt::SDKTemplate::implementation
         co_await winrt::resume_foreground(userList.Dispatcher());
         for (uint32_t index = 0; index < users.Size(); index++)
         {
-            models.Append(winrt::make<SDKTemplate::implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
+            models.Append(winrt::make<implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
         }
         userList.SelectedIndex(0);
     }
