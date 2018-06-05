@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Scenario1_FindUsers.h"
 
+#include "MainPage.h"
 #include "UserViewModel.h"
 #include "single_threaded_observable_vector.h"
 
@@ -100,9 +101,10 @@ namespace winrt::SDKTemplate::implementation
         {
             ResultsText().Text(L"");
             ProfileImage().Source(nullptr);
-            // *******************************************************************************
-            // TODO: The C++/CX code called MainPage::NotifyUser() to clear the status message
-            // *******************************************************************************
+            if (auto rootPage = MainPage::Current())
+            {
+                rootPage.NotifyUser(L"", NotifyType::StatusMessage);
+            }
 
             User user(nullptr);
             try
@@ -123,10 +125,10 @@ namespace winrt::SDKTemplate::implementation
         }
         else
         {
-            // ***********************************************************************
-            // TODO: The C++/CX code called MainPage::NotifyUser() to display an error
-            // ***********************************************************************
-            ResultsText().Text(L"No user selected");
+            if (auto rootPage = MainPage::Current())
+            {
+                rootPage.NotifyUser(L"Could not reacquire the user", NotifyType::ErrorMessage);
+            }
         }
     }
 }
