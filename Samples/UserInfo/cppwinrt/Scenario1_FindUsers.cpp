@@ -111,11 +111,9 @@ namespace winrt::SDKTemplate::implementation
             {
                 user = User::GetFromId(model.UserId());
             }
-            // *****************************************************************
-            // TODO: What exception to catch here? (the C++/CX caught Exception)
-            // *****************************************************************
-            catch (...)
+            catch (winrt::hresult_error)
             {
+                // The C++/CX version of this caught & ignored a Platform::Exception
             }
 
             if (user != nullptr)
