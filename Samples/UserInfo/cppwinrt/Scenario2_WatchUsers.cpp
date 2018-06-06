@@ -99,45 +99,29 @@ namespace winrt::SDKTemplate::implementation
         ::OutputDebugStringW(L"OnUserRemoved() called\n");
     }
 
-    // **************************************************
-    // TODO: Any way to make OnEnumerationComplete async?
-    // **************************************************
-    static IAsyncAction EnumerationCompletedAsync(SDKTemplate::MainPage rootPage)
-    {
-        // UI work must happen on the UI thread.
-        co_await winrt::resume_foreground(rootPage.Dispatcher());
-        rootPage.NotifyUser(L"Enumeration complete. Watching for changes...", NotifyType::StatusMessage);
-    }
-
-    void Scenario2_WatchUsers::OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e)
+    IAsyncAction Scenario2_WatchUsers::OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e)
     {
         UNREFERENCED_PARAMETER(sender);
         UNREFERENCED_PARAMETER(e);
 
+        // UI work must happen on the UI thread.
         if (auto rootPage = MainPage::Current())
         {
-            EnumerationCompletedAsync(rootPage);
+            co_await winrt::resume_foreground(rootPage.Dispatcher());
+            rootPage.NotifyUser(L"Enumeration complete. Watching for changes...", NotifyType::StatusMessage);
         }
     }
 
-    // *********************************************
-    // TODO: Any way to make OnWatcherStopped async?
-    // *********************************************
-    static IAsyncAction WatcherStoppedAsync(SDKTemplate::MainPage rootPage, implementation::Scenario2_WatchUsers *pThis)
-    {
-        // UI work must happen on the UI thread.
-        co_await winrt::resume_foreground(rootPage.Dispatcher());
-        pThis->StopWatching();
-    }
-
-    void Scenario2_WatchUsers::OnWatcherStopped(Windows::System::UserWatcher sender, IInspectable e)
+    IAsyncAction Scenario2_WatchUsers::OnWatcherStopped(Windows::System::UserWatcher sender, IInspectable e)
     {
         UNREFERENCED_PARAMETER(sender);
         UNREFERENCED_PARAMETER(e);
 
-        if (auto rootPage = MainPage::Current())
+        // UI work must happen on the UI thread.
+        if(auto rootPage = MainPage::Current())
         {
-            WatcherStoppedAsync(rootPage, this);
+            co_await winrt::resume_foreground(rootPage.Dispatcher());
+            StopWatching();
         }
     }
 }

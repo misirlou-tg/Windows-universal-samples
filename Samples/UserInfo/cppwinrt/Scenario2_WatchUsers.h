@@ -33,8 +33,8 @@ namespace winrt::SDKTemplate::implementation
         void OnUserAdded(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
         void OnUserUpdated(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
         void OnUserRemoved(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
-        void OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e);
-        void OnWatcherStopped(Windows::System::UserWatcher sender, IInspectable e);
+        Windows::Foundation::IAsyncAction OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e);
+        Windows::Foundation::IAsyncAction OnWatcherStopped(Windows::System::UserWatcher sender, IInspectable e);
     };
 }
 
