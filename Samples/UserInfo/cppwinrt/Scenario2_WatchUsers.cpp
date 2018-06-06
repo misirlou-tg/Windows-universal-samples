@@ -2,6 +2,7 @@
 #include "Scenario2_WatchUsers.h"
 
 #include "MainPage.h"
+#include "UserViewModel.h"
 #include "single_threaded_observable_vector.h"
 
 using namespace winrt;
@@ -59,6 +60,7 @@ namespace winrt::SDKTemplate::implementation
             userWatcher.Stopped(watcherStoppedToken);
             userWatcher.Stop();
             userWatcher = nullptr;
+            models.Clear();
             StartButton().IsEnabled(true);
             StopButton().IsEnabled(false);
 
@@ -75,28 +77,88 @@ namespace winrt::SDKTemplate::implementation
         return models;
     }
 
-    void Scenario2_WatchUsers::OnUserAdded(UserWatcher sender, UserChangedEventArgs e)
+    IAsyncOperation<hstring> Scenario2_WatchUsers::GetDisplayNameOrGenericNameAsync(User user)
     {
-        UNREFERENCED_PARAMETER(sender);
-        UNREFERENCED_PARAMETER(e);
-
-        ::OutputDebugStringW(L"OnUserAdded() called\n");
+        // Try to get the display name.
+        auto result = co_await user.GetPropertyAsync(KnownUserProperties::DisplayName());
+        auto displayName = winrt::unbox_value<hstring>(result);
+        if (displayName.empty())
+        {
+            displayName = hstring(L"User #") + winrt::to_hstring(nextUserNumber++);
+        }
+        return displayName;
     }
 
-    void Scenario2_WatchUsers::OnUserUpdated(UserWatcher sender, UserChangedEventArgs e)
+    SDKTemplate::UserViewModel Scenario2_WatchUsers::FindModelByUserId(hstring userId)
     {
-        UNREFERENCED_PARAMETER(sender);
-        UNREFERENCED_PARAMETER(e);
-
-        ::OutputDebugStringW(L"OnUserUpdated() called\n");
+        for (auto&& m : models)
+        {
+            auto model = m.as<SDKTemplate::UserViewModel>();
+            if (model.UserId() == userId)
+            {
+                return model;
+            }
+        }
+        return nullptr;
     }
 
-    void Scenario2_WatchUsers::OnUserRemoved(UserWatcher sender, UserChangedEventArgs e)
+    IAsyncAction Scenario2_WatchUsers::OnUserAdded(UserWatcher sender, UserChangedEventArgs e)
     {
         UNREFERENCED_PARAMETER(sender);
-        UNREFERENCED_PARAMETER(e);
 
-        ::OutputDebugStringW(L"OnUserRemoved() called\n");
+        // UI work must happen on the UI thread.
+        if (auto rootPage = MainPage::Current())
+        {
+            co_await winrt::resume_foreground(rootPage.Dispatcher());
+
+            // Create the user with "..." as the temporary display name.
+            // Add it right away, because it might get removed while the
+            // "await GetDisplayNameOrGenericNameAsync()" is running.
+            auto model = winrt::make<implementation::UserViewModel>(e.User().NonRoamableId(), L"\u2026");
+            // Try to get the display name.
+            model.DisplayName(co_await GetDisplayNameOrGenericNameAsync(e.User()));
+            models.Append(model);
+        }
+    }
+
+    IAsyncAction Scenario2_WatchUsers::OnUserUpdated(UserWatcher sender, UserChangedEventArgs e)
+    {
+        UNREFERENCED_PARAMETER(sender);
+
+        // UI work must happen on the UI thread.
+        if (auto rootPage = MainPage::Current())
+        {
+            co_await winrt::resume_foreground(rootPage.Dispatcher());
+
+            // Look for the user in our collection and update the display name.
+            auto model = FindModelByUserId(e.User().NonRoamableId());
+            if (model != nullptr)
+            {
+                model.DisplayName(co_await GetDisplayNameOrGenericNameAsync(e.User()));
+            }
+        }
+    }
+
+    IAsyncAction Scenario2_WatchUsers::OnUserRemoved(UserWatcher sender, UserChangedEventArgs e)
+    {
+        UNREFERENCED_PARAMETER(sender);
+
+        // UI work must happen on the UI thread.
+        if (auto rootPage = MainPage::Current())
+        {
+            co_await winrt::resume_foreground(rootPage.Dispatcher());
+
+            // Look for the user in our collection and remove it.
+            auto model = FindModelByUserId(e.User().NonRoamableId());
+            if (model != nullptr)
+            {
+                uint32_t index;
+                if (models.IndexOf(model, index))
+                {
+                    models.RemoveAt(index);
+                }
+            }
+        }
     }
 
     IAsyncAction Scenario2_WatchUsers::OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e)

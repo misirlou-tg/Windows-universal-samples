@@ -30,9 +30,12 @@ namespace winrt::SDKTemplate::implementation
         winrt::event_token enumerationCompletedToken;
         winrt::event_token watcherStoppedToken;
 
-        void OnUserAdded(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
-        void OnUserUpdated(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
-        void OnUserRemoved(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
+        SDKTemplate::UserViewModel FindModelByUserId(hstring userId);
+        Windows::Foundation::IAsyncOperation<hstring> GetDisplayNameOrGenericNameAsync(Windows::System::User user);
+
+        Windows::Foundation::IAsyncAction OnUserAdded(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
+        Windows::Foundation::IAsyncAction OnUserUpdated(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
+        Windows::Foundation::IAsyncAction OnUserRemoved(Windows::System::UserWatcher sender, Windows::System::UserChangedEventArgs e);
         Windows::Foundation::IAsyncAction OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e);
         Windows::Foundation::IAsyncAction OnWatcherStopped(Windows::System::UserWatcher sender, IInspectable e);
     };
