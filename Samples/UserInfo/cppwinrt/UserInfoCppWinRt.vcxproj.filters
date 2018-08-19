@@ -36,7 +36,7 @@
     <ClInclude Include="..\..\..\SharedContent\cppwinrt\MainPage.h" />
     <ClInclude Include="Scenario1_FindUsers.h" />
     <ClInclude Include="Scenario2_WatchUsers.h" />
-    <ClCompile Include="UserViewModel.h" />
+    <ClInclude Include="UserViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
