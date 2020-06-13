@@ -31,7 +31,7 @@
                 </TextBlock>
                 <ComboBox x:Name="UserList" ItemsSource="{Binding}" DisplayMemberPath="DisplayName" Width="300"/>
                 <Button Content="Show properties" Click="{x:Bind ShowProperties}" Margin="0,10,0,0"/>
-                <Button Content="{x:Bind CurrentUser.DisplayName}" Margin="0,10,0,0"/>
+                <Button Content="{x:Bind CurrentUser.DisplayName, Mode=OneWay}" Margin="0,10,0,0"/>
             </StackPanel>
 
             <ScrollViewer Grid.Row="1" VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
