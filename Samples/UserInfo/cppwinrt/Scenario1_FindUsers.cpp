@@ -22,11 +22,11 @@ namespace winrt::SDKTemplate::implementation
         UserList().DataContext(models);
     }
 
-    static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IVector<IInspectable> &models, ComboBox userList)
+    static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IObservableVector<IInspectable> &models, ComboBox userList)
     {
         auto users = co_await User::FindAllAsync();
         auto nextUserNumber = 1;
-        std::vector<hstring> results;
+        std::vector<hstring> displayNames;
         for (auto&& user : users)
         {
             auto displayNameProp = co_await user.GetPropertyAsync(KnownUserProperties::DisplayName());
@@ -35,14 +35,14 @@ namespace winrt::SDKTemplate::implementation
             {
                 displayName = hstring(L"User #") + winrt::to_hstring(nextUserNumber++);
             }
-            results.push_back(displayName);
+            displayNames.push_back(displayName);
         }
 
         // Note, the C++/CX version of this DID NOT switch to the UI thread
         co_await winrt::resume_foreground(userList.Dispatcher());
         for (uint32_t index = 0; index < users.Size(); index++)
         {
-            models.Append(winrt::make<implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), results[0]));
+            models.Append(winrt::make<implementation::UserViewModel>(users.GetAt(index).NonRoamableId(), displayNames[index]));
         }
         userList.SelectedIndex(0);
     }
