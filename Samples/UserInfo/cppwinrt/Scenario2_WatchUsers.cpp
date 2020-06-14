@@ -3,6 +3,7 @@
 
 #include "MainPage.h"
 #include "UserViewModel.h"
+#include "Scenario1_FindUsers.h"
 #include "single_threaded_observable_vector.h"
 
 using namespace winrt;
@@ -79,13 +80,7 @@ namespace winrt::SDKTemplate::implementation
 
     IAsyncOperation<hstring> Scenario2_WatchUsers::GetDisplayNameOrGenericNameAsync(User user)
     {
-        // Try to get the display name.
-        auto result = co_await user.GetPropertyAsync(KnownUserProperties::DisplayName());
-        auto displayName = winrt::unbox_value<hstring>(result);
-        if (displayName.empty())
-        {
-            displayName = hstring(L"User #") + winrt::to_hstring(nextUserNumber++);
-        }
+        auto displayName = co_await Scenario1_FindUsers::GetDisplayNameOrGenericNameAsync(user, [this]() { return nextUserNumber++; });
         return displayName;
     }
 

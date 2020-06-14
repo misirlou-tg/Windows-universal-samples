@@ -22,6 +22,18 @@ namespace winrt::SDKTemplate::implementation
         UserList().DataContext(models);
     }
 
+    IAsyncOperation<hstring> Scenario1_FindUsers::GetDisplayNameOrGenericNameAsync(User user, std::function<int()> getNextUserNumber)
+    {
+        // Try to get the display name.
+        auto displayNameProp = co_await user.GetPropertyAsync(KnownUserProperties::DisplayName());
+        auto displayName = winrt::unbox_value<hstring>(displayNameProp);
+        if (!displayName.empty())
+        {
+            return displayName;
+        }
+        return hstring(L"User #") + winrt::to_hstring(getNextUserNumber());
+    }
+
     static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IObservableVector<IInspectable> &models, ComboBox userList)
     {
         auto users = co_await User::FindAllAsync();
@@ -29,12 +41,7 @@ namespace winrt::SDKTemplate::implementation
         std::vector<hstring> displayNames;
         for (auto&& user : users)
         {
-            auto displayNameProp = co_await user.GetPropertyAsync(KnownUserProperties::DisplayName());
-            auto displayName = winrt::unbox_value<hstring>(displayNameProp);
-            if (displayName.empty())
-            {
-                displayName = hstring(L"User #") + winrt::to_hstring(nextUserNumber++);
-            }
+            auto displayName = co_await Scenario1_FindUsers::GetDisplayNameOrGenericNameAsync(user, [&nextUserNumber]() { return nextUserNumber++; });
             displayNames.push_back(displayName);
         }
 

@@ -12,6 +12,9 @@ namespace winrt::SDKTemplate::implementation
     {
         Scenario1_FindUsers();
 
+        // Helper function used by both scenarios
+        static Windows::Foundation::IAsyncOperation<hstring> GetDisplayNameOrGenericNameAsync(Windows::System::User user, std::function<int()> getNextUserNumber);
+
         virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs const& args);
 
         void ShowProperties();
