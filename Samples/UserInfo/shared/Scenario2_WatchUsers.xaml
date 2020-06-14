@@ -14,6 +14,7 @@
     x:Class="SDKTemplate.Scenario2_WatchUsers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKTemplate"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -32,8 +33,14 @@
                     <Button x:Name="StartButton" Content="Start watching" Click="{x:Bind StartWatching}" Margin="0,0,10,0"/>
                     <Button x:Name="StopButton" Content="Stop watching" Click="{x:Bind StopWatching}" Margin="0,0,10,0" IsEnabled="False"/>
                 </StackPanel>
-                <ListBox x:Name="UserList" ItemsSource="{x:Bind Users}" DisplayMemberPath="DisplayName"
-                         Margin="0,10,0,0" Width="300" HorizontalAlignment="Left"/>
+                <ListBox x:Name="UserList" ItemsSource="{x:Bind Users}"
+                         Margin="0,10,0,0" Width="300" HorizontalAlignment="Left">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local:UserViewModel">
+                            <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListBox>
             </StackPanel>
         </Grid>
     </Grid>

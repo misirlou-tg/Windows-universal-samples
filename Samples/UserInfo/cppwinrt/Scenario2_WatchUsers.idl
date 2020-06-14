@@ -8,6 +8,6 @@ namespace SDKTemplate
         void StartWatching();
         void StopWatching();
 
-        Windows.Foundation.Collections.IVector<IInspectable> Users{ get; };
+        Windows.Foundation.Collections.IObservableVector<IInspectable> Users{ get; };
     }
 }

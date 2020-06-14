@@ -72,7 +72,7 @@ namespace winrt::SDKTemplate::implementation
         }
     }
 
-    Windows::Foundation::Collections::IVector<IInspectable> Scenario2_WatchUsers::Users()
+    Windows::Foundation::Collections::IObservableVector<IInspectable> Scenario2_WatchUsers::Users()
     {
         return models;
     }
