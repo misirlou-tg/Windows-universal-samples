@@ -20,7 +20,7 @@ namespace winrt::SDKTemplate::implementation
         void ShowProperties();
 
     private:
-        Windows::Foundation::Collections::IObservableVector<IInspectable> models;
+        Windows::Foundation::Collections::IObservableVector<SDKTemplate::UserViewModel> models;
     };
 }
 

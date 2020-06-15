@@ -18,7 +18,7 @@ namespace winrt::SDKTemplate::implementation
     {
         InitializeComponent();
 
-        models = winrt::single_threaded_observable_vector<IInspectable>();
+        models = winrt::single_threaded_observable_vector<SDKTemplate::UserViewModel>();
         UserList().DataContext(models);
     }
 
@@ -34,7 +34,7 @@ namespace winrt::SDKTemplate::implementation
         return hstring(L"User #") + winrt::to_hstring(getNextUserNumber());
     }
 
-    static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IObservableVector<IInspectable> &models, ComboBox userList)
+    static IAsyncAction GetUsersAsync(Windows::Foundation::Collections::IObservableVector<SDKTemplate::UserViewModel> &models, ComboBox userList)
     {
         auto users = co_await User::FindAllAsync();
         auto nextUserNumber = 1;

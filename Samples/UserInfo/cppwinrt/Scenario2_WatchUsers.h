@@ -17,10 +17,10 @@ namespace winrt::SDKTemplate::implementation
         void StartWatching();
         void StopWatching();
 
-        Windows::Foundation::Collections::IObservableVector<IInspectable> Users();
+        Windows::Foundation::Collections::IObservableVector<SDKTemplate::UserViewModel> Users();
 
     private:
-        Windows::Foundation::Collections::IObservableVector<IInspectable> models;
+        Windows::Foundation::Collections::IObservableVector<SDKTemplate::UserViewModel> models;
         int nextUserNumber;
         Windows::System::UserWatcher userWatcher;
 

@@ -18,7 +18,7 @@ namespace winrt::SDKTemplate::implementation
     {
         InitializeComponent();
 
-        models = winrt::single_threaded_observable_vector<IInspectable>();
+        models = winrt::single_threaded_observable_vector<SDKTemplate::UserViewModel>();
         UserList().DataContext(models);
     }
 
@@ -73,7 +73,7 @@ namespace winrt::SDKTemplate::implementation
         }
     }
 
-    Windows::Foundation::Collections::IObservableVector<IInspectable> Scenario2_WatchUsers::Users()
+    Windows::Foundation::Collections::IObservableVector<SDKTemplate::UserViewModel> Scenario2_WatchUsers::Users()
     {
         return models;
     }
