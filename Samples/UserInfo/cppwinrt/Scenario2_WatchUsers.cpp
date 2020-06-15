@@ -102,18 +102,15 @@ namespace winrt::SDKTemplate::implementation
         UNREFERENCED_PARAMETER(sender);
 
         // UI work must happen on the UI thread.
-        if (auto rootPage = MainPage::Current())
-        {
-            co_await winrt::resume_foreground(rootPage.Dispatcher());
+        co_await winrt::resume_foreground(Dispatcher());
 
-            // Create the user with "..." as the temporary display name.
-            // Add it right away, because it might get removed while the
-            // "await GetDisplayNameOrGenericNameAsync()" is running.
-            auto model = winrt::make<implementation::UserViewModel>(e.User().NonRoamableId(), L"\u2026");
-            // Try to get the display name.
-            model.DisplayName(co_await GetDisplayNameOrGenericNameAsync(e.User()));
-            models.Append(model);
-        }
+        // Create the user with "..." as the temporary display name.
+        // Add it right away, because it might get removed while the
+        // "await GetDisplayNameOrGenericNameAsync()" is running.
+        auto model = winrt::make<implementation::UserViewModel>(e.User().NonRoamableId(), L"\u2026");
+        // Try to get the display name.
+        model.DisplayName(co_await GetDisplayNameOrGenericNameAsync(e.User()));
+        models.Append(model);
     }
 
     IAsyncAction Scenario2_WatchUsers::OnUserUpdated(UserWatcher sender, UserChangedEventArgs e)
@@ -121,16 +118,13 @@ namespace winrt::SDKTemplate::implementation
         UNREFERENCED_PARAMETER(sender);
 
         // UI work must happen on the UI thread.
-        if (auto rootPage = MainPage::Current())
-        {
-            co_await winrt::resume_foreground(rootPage.Dispatcher());
+        co_await winrt::resume_foreground(Dispatcher());
 
-            // Look for the user in our collection and update the display name.
-            auto model = FindModelByUserId(e.User().NonRoamableId());
-            if (model != nullptr)
-            {
-                model.DisplayName(co_await GetDisplayNameOrGenericNameAsync(e.User()));
-            }
+        // Look for the user in our collection and update the display name.
+        auto model = FindModelByUserId(e.User().NonRoamableId());
+        if (model != nullptr)
+        {
+            model.DisplayName(co_await GetDisplayNameOrGenericNameAsync(e.User()));
         }
     }
 
@@ -139,32 +133,27 @@ namespace winrt::SDKTemplate::implementation
         UNREFERENCED_PARAMETER(sender);
 
         // UI work must happen on the UI thread.
-        if (auto rootPage = MainPage::Current())
-        {
-            co_await winrt::resume_foreground(rootPage.Dispatcher());
+        co_await winrt::resume_foreground(Dispatcher());
 
-            // Look for the user in our collection and remove it.
-            auto model = FindModelByUserId(e.User().NonRoamableId());
-            if (model != nullptr)
+        // Look for the user in our collection and remove it.
+        auto model = FindModelByUserId(e.User().NonRoamableId());
+        if (model != nullptr)
+        {
+            uint32_t index;
+            if (models.IndexOf(model, index))
             {
-                uint32_t index;
-                if (models.IndexOf(model, index))
-                {
-                    models.RemoveAt(index);
-                }
+                models.RemoveAt(index);
             }
         }
     }
 
-    IAsyncAction Scenario2_WatchUsers::OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e)
+    void Scenario2_WatchUsers::OnEnumerationCompleted(Windows::System::UserWatcher sender, IInspectable e)
     {
         UNREFERENCED_PARAMETER(sender);
         UNREFERENCED_PARAMETER(e);
 
-        // UI work must happen on the UI thread.
         if (auto rootPage = MainPage::Current())
         {
-            co_await winrt::resume_foreground(rootPage.Dispatcher());
             rootPage.NotifyUser(L"Enumeration complete. Watching for changes...", NotifyType::StatusMessage);
         }
     }
@@ -175,10 +164,7 @@ namespace winrt::SDKTemplate::implementation
         UNREFERENCED_PARAMETER(e);
 
         // UI work must happen on the UI thread.
-        if(auto rootPage = MainPage::Current())
-        {
-            co_await winrt::resume_foreground(rootPage.Dispatcher());
-            StopWatching();
-        }
+        co_await winrt::resume_foreground(Dispatcher());
+        StopWatching();
     }
 }
