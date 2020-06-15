@@ -1,0 +1,26 @@
+namespace SDKTemplate
+{
+    [default_interface]
+    runtimeclass Scenario1_FindUsers : Windows.UI.Xaml.Controls.Page
+    {
+        Scenario1_FindUsers();
+        void ShowProperties();
+    }
+
+    [default_interface]
+    runtimeclass Scenario2_WatchUsers : Windows.UI.Xaml.Controls.Page
+    {
+        Scenario2_WatchUsers();
+
+        void StartWatching();
+        void StopWatching();
+
+        Windows.Foundation.Collections.IObservableVector<IInspectable> Users{ get; };
+    }
+
+    runtimeclass UserViewModel : Windows.UI.Xaml.DependencyObject, Windows.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        String UserId { get; };
+        String DisplayName;
+    }
+}

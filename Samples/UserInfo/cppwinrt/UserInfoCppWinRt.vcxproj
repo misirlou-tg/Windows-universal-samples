@@ -108,11 +108,8 @@
       <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="UserViewModel.h">
-      <DependentUpon>UserViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="UserViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(SharedContentDir)\xaml\App.xaml">
@@ -149,10 +146,6 @@
       <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UserViewModel.cpp">
-      <DependentUpon>UserViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
       <DependentUpon>pch.h</DependentUpon>
@@ -160,22 +153,13 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp">
       <DependentUpon>Project.idl</DependentUpon>
     </ClCompile>
+    <ClCompile Include="UserViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(SharedContentDir)\cppwinrt\MainPage.idl">
       <DependentUpon>$(SharedContentDir)\xaml\MainPage.xaml</DependentUpon>
     </Midl>
-    <Midl Include="Scenario1_FindUsers.idl">
-      <DependentUpon>..\shared\Scenario1_FindUsers.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Scenario2_WatchUsers.idl">
-      <DependentUpon>..\shared\Scenario2_WatchUsers.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="UserViewModel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
+    <Midl Include="Project.idl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="$(SharedContentDir)\media\microsoft-sdk.png">

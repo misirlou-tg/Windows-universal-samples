@@ -13,9 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(SharedContentDir)\cppwinrt\MainPage.idl" />
-    <Midl Include="Scenario1_FindUsers.idl" />
-    <Midl Include="Scenario2_WatchUsers.idl" />
-    <Midl Include="UserViewModel.idl" />
+    <Midl Include="Project.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -29,6 +27,7 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="UserViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -37,6 +36,7 @@
     <ClInclude Include="SampleConfiguration.h" />
     <ClInclude Include="Scenario1_FindUsers.h" />
     <ClInclude Include="Scenario2_WatchUsers.h" />
+    <ClInclude Include="UserViewModel.h" />
     <ClInclude Include="UserViewModel.h" />
   </ItemGroup>
   <ItemGroup>
