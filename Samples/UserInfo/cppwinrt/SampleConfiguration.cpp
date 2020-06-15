@@ -1,28 +1,29 @@
 #include "pch.h"
+#include <winrt/SDKTemplate.h>
 #include "MainPage.h"
+#include "SampleConfiguration.h"
 
 using namespace winrt;
+using namespace Windows::ApplicationModel::Activation;
+using namespace Windows::Foundation::Collections;
+using namespace SDKTemplate;
 
-namespace winrt::SDKTemplate::implementation
+hstring implementation::MainPage::FEATURE_NAME()
 {
-    hstring MainPage::FeatureName()
-    {
-        return L"User info C++/WinRT sample";
-    }
+    return L"User info C++/WinRT sample";
+}
 
-    std::vector<MainPage::Scenario> MainPage::Scenarios()
+IVector<Scenario> implementation::MainPage::scenariosInner = winrt::single_threaded_observable_vector<Scenario>(
     {
-        static Scenario scenarios[] =
-        {
-            { L"Find users", L"SDKTemplate.Scenario1_FindUsers" },
-            { L"Watch users", L"SDKTemplate.Scenario2_WatchUsers" }
-        };
-        
-        std::vector<MainPage::Scenario> ret;;
-        for (auto t = 0; t < _countof(scenarios); t++)
-        {
-            ret.push_back(scenarios[t]);
-        }
-        return ret;
+        Scenario{ L"Find users", xaml_typename<SDKTemplate::Scenario1_FindUsers>() },
+        Scenario{ L"Watch users", xaml_typename<SDKTemplate::Scenario2_WatchUsers>() },
+    });
+
+void winrt::SDKTemplate::App_LaunchCompleted(LaunchActivatedEventArgs const& e)
+{
+    hstring arguments = e.Arguments();
+    if (!arguments.empty())
+    {
+        implementation::MainPage::Current().Navigate(xaml_typename<Scenario1_FindUsers>(), box_value(L"arguments: " + arguments));
     }
 }

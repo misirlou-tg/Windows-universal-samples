@@ -1,63 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ApplicationDefinition Include="..\..\..\SharedContent\xaml\App.xaml" />
+    <ApplicationDefinition Include="$(SharedContentDir)\xaml\App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\..\..\SharedContent\cpp\MainPage.xaml" />
-    <Page Include="..\..\..\SharedContent\xaml\Styles.xaml">
+    <Page Include="$(SharedContentDir)\xaml\MainPage.xaml" />
+    <Page Include="$(SharedContentDir)\xaml\Styles.xaml">
       <Filter>Styles</Filter>
     </Page>
     <Page Include="..\shared\Scenario1_FindUsers.xaml" />
     <Page Include="..\shared\Scenario2_WatchUsers.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="..\..\..\SharedContent\cppwinrt\App.idl" />
-    <Midl Include="..\..\..\SharedContent\cppwinrt\MainPage.idl" />
+    <Midl Include="$(SharedContentDir)\cppwinrt\MainPage.idl" />
     <Midl Include="Scenario1_FindUsers.idl" />
     <Midl Include="Scenario2_WatchUsers.idl" />
     <Midl Include="UserViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="..\..\..\SharedContent\cppwinrt\App.cpp" />
-    <ClCompile Include="..\..\..\SharedContent\cppwinrt\MainPage.cpp" />
-    <ClCompile Include="Generated Files\module.g.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
+    <ClCompile Include="$(SharedContentDir)\cppwinrt\App.cpp" />
+    <ClCompile Include="$(SharedContentDir)\cppwinrt\MainPage.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="SampleConfiguration.cpp" />
     <ClCompile Include="Scenario1_FindUsers.cpp" />
     <ClCompile Include="Scenario2_WatchUsers.cpp" />
     <ClCompile Include="UserViewModel.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="..\..\..\SharedContent\cppwinrt\App.h" />
-    <ClInclude Include="..\..\..\SharedContent\cppwinrt\MainPage.h" />
+    <ClInclude Include="$(SharedContentDir)\cppwinrt\App.h" />
+    <ClInclude Include="$(SharedContentDir)\cppwinrt\MainPage.h" />
+    <ClInclude Include="SampleConfiguration.h" />
     <ClInclude Include="Scenario1_FindUsers.h" />
     <ClInclude Include="Scenario2_WatchUsers.h" />
     <ClInclude Include="UserViewModel.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
+    <Image Include="$(SharedContentDir)\media\microsoft-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\SharedContent\media\smalltile-sdk.png">
+    <Image Include="$(SharedContentDir)\media\smalltile-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\SharedContent\media\splash-sdk.png">
+    <Image Include="$(SharedContentDir)\media\splash-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\SharedContent\media\squaretile-sdk.png">
+    <Image Include="$(SharedContentDir)\media\squaretile-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\SharedContent\media\storelogo-sdk.png">
+    <Image Include="$(SharedContentDir)\media\storelogo-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\SharedContent\media\tile-sdk.png">
+    <Image Include="$(SharedContentDir)\media\tile-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\SharedContent\media\windows-sdk.png">
+    <Image Include="$(SharedContentDir)\media\windows-sdk.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -71,12 +72,10 @@
   <ItemGroup>
     <Filter Include="Assets">
       <UniqueIdentifier>{e48dc53e-40b1-40cb-970a-f89935452892}</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
     <Filter Include="Styles">
       <UniqueIdentifier>{b4a49433-d8c4-482a-b465-8b4384fef306}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Generated Files">
-      <UniqueIdentifier>{54ac0374-6a3f-4be8-af8a-745e33d4c3af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

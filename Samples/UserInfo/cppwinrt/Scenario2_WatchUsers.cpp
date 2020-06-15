@@ -1,10 +1,10 @@
 ﻿#include "pch.h"
 #include "Scenario2_WatchUsers.h"
+#include "Scenario2_WatchUsers.g.cpp"
 
 #include "MainPage.h"
 #include "UserViewModel.h"
 #include "Scenario1_FindUsers.h"
-#include "single_threaded_observable_vector.h"
 
 using namespace winrt;
 using namespace Windows::Foundation;
@@ -18,7 +18,7 @@ namespace winrt::SDKTemplate::implementation
     {
         InitializeComponent();
 
-        models = winrt::make<single_threaded_observable_vector<IInspectable>>();
+        models = winrt::single_threaded_observable_vector<IInspectable>();
         UserList().DataContext(models);
     }
 
